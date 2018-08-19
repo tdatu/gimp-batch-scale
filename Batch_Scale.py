@@ -48,13 +48,22 @@ def batch_scales(source_directory, output_directory, width, height):
                 # Compute new height or width 
                 # Calculations ensure width or height does not
                 # Fall under the minimum constraints
+                new_height = height
+                new_width = width
+
                 if(orientation == "landscape"):
-                    height = width * img_height / img_width
+                    new_height = width * img_height / img_width
                 else:
-                    width = height * img_width / img_height
+                    new_width = height * img_width / img_height
 
                 #Resize to width x height
-                pdb.gimp_image_scale(img, width, height)
+                pdb.gimp_image_scale(img, new_width, new_height)
+
+                #Crop
+                pdb.gimp_image_crop(img, width, height, 0, 0)
+
+                pdb.gimp_message(width)
+                pdb.gimp_message(height)
 
                 #Save the image
                 pdb.gimp_file_save(
@@ -76,25 +85,25 @@ register(
     "RGB*, GRAY*",
     [
         (
-            PF_STRING, "source", 
+            PF_DIRNAME, "source",
             _("Source Folder"), 
-            os.path.join(os.environ["USERPROFILE"],"Pictures", "BatchImages") 
+            os.path.join(os.environ["USERPROFILE"],"Pictures")
             if "USERPROFILE" in os.environ 
-            else os.path.join(os.environ["HOME"],"Pictures","BatchImages")
+            else os.path.join(os.environ["HOME"],"Pictures")
         ),
         (
-            PF_STRING, "output", 
+            PF_DIRNAME, "output",
             _("Output Folder"), 
-            os.path.join(os.environ["USERPROFILE"],"Pictures", "OutputImages") 
+            os.path.join(os.environ["USERPROFILE"],"Pictures")
             if "USERPROFILE" in os.environ 
-            else os.path.join(os.environ["HOME"],"Pictures","OutputImages")
+            else os.path.join(os.environ["HOME"],"Pictures")
         ),
         (PF_INT, "width", _("Min Width"), 1920),
         (PF_INT, "height", _("Min Height"), 1080)
     ],
     [],
     batch_scales,
-    menu="<Image>/Filters/Render",
+    menu="<Image>/Image/Transform",
     )
 
 main()

@@ -11,7 +11,7 @@ Batch_Scale.py should be placed in Gimp's plug-in folder.
 - Set the appropriate permission to chmod 775. 
 
 ## Gimp Menu
-Filters > Render > BatchScale
+Image > Transform > BatchScale
 
 ## To use
 1. Launch Gimp, then open an image (to activate the filter submenu).
