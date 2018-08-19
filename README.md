@@ -15,7 +15,7 @@ Image > Transform > BatchScale
 
 ## To use
 1. Launch Gimp, then open an image (to activate the filter submenu).
-2. Filters > Render > BatchScale.
+2. Image > Transform > BatchScale.
 3. Set the source folder and destination folder (no trailing slash / at the end).
 4. Set the minimum width and minimum height.
 
